@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>K!</title>
+    <style>
+        body {
+            background-color: #e6e6e6;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        
+        #header {
+            background-color: #2b2b2b;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        #title {
+            font-size: 24px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #microphone {
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            border-radius: 50%;
+            margin-left: 5px;
+        }
+        
+        #randomButtons {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        
+        .randomButton {
+            background-color: #2b2b2b;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+        
+        #resultContainer {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        
+        .redText {
+            color: red;
+        }
+    </style>
+<body>
+    <header id="header">
+        <h1 id="title">K(araoke)PMG<span id="microphone"></span></h1>
+        <div id="randomButtons">
+            <button class="randomButton" onclick="showRandomPair()">Coppia casuale</button>
+            <button class="randomButton" onclick="showRandomActivity()">Attivita casuale</button>
+            <button class="randomButton" onclick="showRandomTeams()">Squadre casuali</button>
+            <button class="randomButton" onclick="showRandomSong()">Canzone casuale</button>
+        </div>
+    </header>
+
+    <div id="resultContainer"></div>
+<button onclick="clearResults()">Cancella risultati</button>
+
+</body>
+    <script>
+        var participants = [
+            "Ursini", "Gracis", "Zampa", "Bana", "Alpeggiani", "Faggionato",
+            "Migliorini", "Femiano", "Luciani", "Burgio", "Candelora",
+            "Visco", "Andriuzzi", "Pasini", "Carcano"
+        ];
+
+        var songs = [
+            "Vasco Rossi - Come nelle favole",
+            "Tiziano Ferro - Potremmo ritornare",
+            "Eros Ramazzotti - Vita ce n'è",
+            "Ligabue - Luci d'America",
+            "Giorgia - Scelgo ancora te",
+            "Jovanotti - Chiaro di Luna",
+            "Laura Pausini - Non è detto",
+            "Marco Mengoni - Voglio",
+            "Elisa - Se piovesse il tuo nome",
+            "Negramaro - La prima volta",
+            "Emma Marrone - Io sono bella",
+            "Benji & Fede - Dove e quando",
+            "Gianna Nannini - Fenomenale",
+            "Cesare Cremonini - Possibili scenari",
+            "Annalisa - Bye Bye",
+            "Eros Ramazzotti - Più bella cosa",
+            "Laura Pausini - La solitudine",
+            "Tiziano Ferro - Perdono",
+            "Vasco Rossi - Un senso",
+            "Negramaro - Mentre tutto scorre",
+            "Ligabue - Ho perso le parole",
+            "Giorgia - Di sole e d'azzurro",
+            "Jovanotti - A te",
+            "Gigi D'Alessio - Non dirgli mai",
+            "Lùnapop - 50 Special",
+            "Paola & Chiara - Vamos a bailar",
+            "Alex Britti - Solo una volta (o tutta la vita)",
+            "Eiffel 65 - Blue (Da Ba Dee)",
+            "Irene Grandi - La tua ragazza sempre",
+            "Nek - Laura non c'è",
+            "Ed Sheeran - Shape of You",
+            "Dua Lipa - Don't Start Now",
+            "Taylor Swift - Blank Space",
+            "Bruno Mars - Just the Way You Are",
+            "Ariana Grande - thank u, next",
+            "Justin Bieber - Sorry",
+            "Billie Eilish - Bad Guy",
+            "Maroon 5 - Sugar",
+            "The Weeknd - Blinding Lights",
+            "Katy Perry - Firework",
+            "Shawn Mendes, Camila Cabello - Senorita",
+            "Rihanna - Diamonds",
+            "Charlie Puth - Attention",
+            "Demi Lovato - Sorry Not Sorry",
+            "Post Malone - Circles",
+            "Britney Spears - Baby One More Time",
+            "Backstreet Boys - I Want It That Way",
+            "Spice Girls - Wannabe",
+            "NSYNC - Bye Bye Bye",
+            "Christina Aguilera - Genie in a Bottle",
+            "Mariah Carey - Always Be My Baby",
+            "Whitney Houston - I Will Always Love You",
+            "Celine Dion - My Heart Will Go On",
+            "Robbie Williams - Angels",
+            "Jennifer Lopez - If You Had My Love",
+            "Savage Garden - Truly Madly Deeply",
+            "Ricky Martin - Livin' la Vida Loca",
+            "Madonna - Frozen",
+            "Hanson - MMMBop",
+            "Ace of Base - The Sign"
+        ];
+
+var activities = [
+    "Sfida a coppie",
+    "Karaoke a tema",
+    "Duetti improvvisati",
+    "Karaoke a sorpresa",
+    "Staffetta canora"
+];
+
+       function showRandomPair() {
+            var pair = getRandomPair();
+            appendResult("<span style='color: blue;'>Coppia casuale: " + pair[0] + " e " + pair[1]);
+        }
+
+        function showRandomActivity() {
+            var activity = getRandomActivity();
+            appendResult("Attivita casuale: " + activity);
+        }
+
+        function showRandomTeams() {
+            var teams = getRandomTeams();
+            appendResult("<span style='color: green;'>Canzone casuale: " + teams);
+        }
+
+        function showRandomSong() {
+            var song = getRandomSong();
+            appendResult("<span style='color: red;'>Canzone casuale: " + song + "</span>");
+        }
+
+        function appendResult(result) {
+            var resultContainer = document.getElementById("resultContainer");
+            var resultElement = document.createElement("div");
+            resultElement.innerHTML = result;
+            resultContainer.appendChild(resultElement);
+        }
+
+        function clearResults() {
+            var resultContainer = document.getElementById("resultContainer");
+            resultContainer.innerHTML = "";
+        }
+
+    function getRandomPair() {
+        var randomIndex1 = Math.floor(Math.random() * participants.length);
+        var randomIndex2 = Math.floor(Math.random() * participants.length);
+        var pair = [participants[randomIndex1], participants[randomIndex2]];
+        return pair;
+    }
+
+    function getRandomActivity() {
+        var randomIndex = Math.floor(Math.random() * activities.length);
+        return activities[randomIndex];
+    }
+
+    function getRandomTeams() {
+        var teams = [];
+        var remainingParticipants = participants.slice(); // Create a copy of participants array
+
+        while (remainingParticipants.length > 0) {
+            var randomIndex = Math.floor(Math.random() * remainingParticipants.length);
+            var player = remainingParticipants.splice(randomIndex, 1)[0];
+            teams.push(player);
+        }
+
+        var teamsString = "";
+        var numTeams = teams.length / 5; // Assuming participants.length is divisible by 5
+        for (var i = 0; i < numTeams; i++) {
+            var team = teams.slice(i * 5, (i + 1) * 5);
+            teamsString += "Squadra " + (i + 1) + ": " + team.join(", ") + "<br>";
+        }
+
+        return teamsString;
+    }
+
+    function getRandomSong() {
+        var randomIndex = Math.floor(Math.random() * songs.length);
+        return songs[randomIndex];
+
+function clearResults() {
+  var resultContainer = document.getElementById("resultContainer");
+  resultContainer.innerHTML = "";
+}
+    }
+</script>
+</head>
+
+</html>
